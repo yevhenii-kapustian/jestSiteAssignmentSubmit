@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import "@testing-library/jest-dom"
 import EpisodeItems from "../components/LatestEpisodesSection/EpisodeItems"
 import { EpisodesType } from "@/types/episodesType"
@@ -25,5 +25,9 @@ it("should display all the items in the component", () => {
 
     const button = screen.getByRole("button", {name: "View Episode Details"})
     expect(button).toBeInTheDocument()
+    fireEvent.click(button)
+    expect(screen.getByText(/Here you can find more information/i)).toBeInTheDocument()
+    fireEvent.click(button)
+    expect(screen.queryByText(/Here you can find more information/i)).not.toBeInTheDocument()
 
 })
